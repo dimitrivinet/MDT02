@@ -1,0 +1,39 @@
+version: "3.1"
+
+services:
+
+  mdt02-python:
+    image: mdt02-python:dev
+    hostname: python
+    build: src/python
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src/python/app:/app:rw
+
+  mdt02-vue:
+    image: mdt02-vue:dev
+    hostname: vue
+    build: src/vue
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src/vue/app/src:/app/src:rw
+
+  mdt02-mongo:
+    image: mongo:5
+    hostname: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+    volumes:
+      - ./db-files/mongod.conf:/etc/mongod.conf
+      - ./db-files/initdb.d/:/docker-entrypoint-initdb.d/
+      - ./db-files/data/db/:/data/db/
+      - ./db-files/data/log/:/var/log/mongodb/
