@@ -18,14 +18,20 @@ mkdir -p db-files
 chmod -R 777 db-files
 ```
 
-(optional step: )
+## Run
+
+```bash
+make run
+```
+
+Work directly on the files on your host machine, and changes will be reflected in containers thanks to the volumes.
+
+## Optional
+
+To have autocomplete in the editor, or test outside of docker container:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-```
-
-
-```bash
-pip3 install -r requirements.txt
+pip3 install -r src/python/requirements.txt
 ```
