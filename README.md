@@ -13,6 +13,7 @@
 ## Setup
 
 ```bash
+cp .env.default .env
 mkdir -p db-files
 chmod -R 777 db-files
 ```
